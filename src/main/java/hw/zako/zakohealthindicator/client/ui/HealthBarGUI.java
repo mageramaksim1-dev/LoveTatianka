@@ -41,7 +41,7 @@ public class HealthBarGUI {
 
         String text = ColorUtil.getColor(health)+""+health;
 
-        final var textW = client.textRenderer.getWidth(text);
+        final int textW = client.textRenderer.getWidth(text);
         context.push();
         float scale = health < 10 ? 2 : 1;
         final int h = (int) (client.getWindow().getScaledHeight()/(scale*2));
