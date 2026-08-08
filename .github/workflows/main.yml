@@ -12,10 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 25
+      - name: Set up JDK 25 (for Minecraft)
         uses: actions/setup-java@v4
         with:
           java-version: '25'
+          distribution: 'temurin'
+
+      - name: Set up JDK 21 (for Gradle)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Gradle
@@ -25,7 +31,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -Porg.gradle.java.installations.paths=$JAVA_HOME_25_X64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
