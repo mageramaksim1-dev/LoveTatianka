@@ -33,10 +33,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -Porg.gradle.java.installations.paths=$JAVA_HOME_25_X64
         env:
-          GRADLE_OPTS: "-Djava.version=25"
+          GRADLE_OPTS: "-Djava.version=25 -Djava.specification.version=25"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Fabric-Mod-26.2
           path: build/libs/*.jar
+          
