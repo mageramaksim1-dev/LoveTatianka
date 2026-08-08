@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "zakohealthindicator",
   "version": "${version}",
-  "name": "ZakoHealthIndicator",
+  "name": "LoveTatianka",
   "description": "",
   "authors": ["Matvey Slotvinskiy"],
   "mixins": [
