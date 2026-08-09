@@ -11,15 +11,12 @@ base {
 }
 
 repositories {
-    // Loom автоматично додає необхідні репозиторії Minecraft/Fabric.
-    // Додаткові репозиторії тут не потрібні.
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
@@ -33,6 +30,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 25
+    it.options.encoding = "UTF-8"
 }
 
 java {
@@ -60,7 +58,5 @@ publishing {
     }
 
     repositories {
-        // Якщо пізніше захочеш публікувати Maven-артефакт,
-        // додаси репозиторій сюди.
     }
 }
