@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "zakohealthindicator",
+  "version": "${version}",
+  "name": "LoveTatianka",
+  "description": "",
+  "authors": [
+    "Matvey Slotvinskiy"
+  ],
+  "mixins": [
+    "zakohealthindicator/mixins.json"
+  ],
+  "contact": {
+    "repo": "https://github.com/mslot/ZakoHealthIndicator"
+  },
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "hw.zako.zakohealthindicator.client.ZakoHealthIndicatorClient"
+    ],
+    "main": [
+      "hw.zako.zakohealthindicator.ZakoHealthIndicator"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
