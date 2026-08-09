@@ -4,19 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class Config {
     private static Config instance;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    private static final File CONFIG_DIR = new File(MinecraftClient.getInstance().runDirectory, "config");
-    private static final File CONFIG_FILE = new File(CONFIG_DIR, "zhindicator.json");
+    private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
+    private static final Path CONFIG_FILE = CONFIG_DIR.resolve("zhindicator.json");
 
     private boolean crosshair = true;
 
@@ -32,42 +32,37 @@ public class Config {
     }
 
     public Config() {
-        createConfigDirIfNeeded();
-    }
-
-    private void createConfigDirIfNeeded() {
-        if (!CONFIG_DIR.exists() && (!CONFIG_DIR.mkdirs())) {
-            return;
-        }
         loadConfig();
     }
 
     public void setCrosshair(boolean crosshair) {
         this.crosshair = crosshair;
-        this.saveConfig();
+        saveConfig();
     }
 
     public void loadConfig() {
-        if (!CONFIG_FILE.exists()) {
+        if (!CONFIG_FILE.toFile().exists()) {
             return;
         }
 
-        try (FileReader reader = new FileReader(CONFIG_FILE)) {
+        try (FileReader reader = new FileReader(CONFIG_FILE.toFile())) {
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
-            if (json.has("crosshair")) {
+            if (json != null && json.has("crosshair")) {
                 crosshair = json.get("crosshair").getAsBoolean();
             }
-
-        } catch (IOException | JsonParseException e) {
+        } catch (IOException | JsonParseException ignored) {
         }
     }
 
     public void saveConfig() {
-        JsonObject json = new JsonObject();
-        json.addProperty("crosshair", crosshair);
-        try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-            GSON.toJson(json, writer);
-        } catch (IOException e) {
+        try {
+            java.nio.file.Files.createDirectories(CONFIG_DIR);
+            JsonObject json = new JsonObject();
+            json.addProperty("crosshair", crosshair);
+            try (FileWriter writer = new FileWriter(CONFIG_FILE.toFile())) {
+                GSON.toJson(json, writer);
+            }
+        } catch (IOException ignored) {
         }
     }
 }

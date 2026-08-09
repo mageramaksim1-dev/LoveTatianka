@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "LoveTatianka",
   "description": "",
-  "authors": ["Matvey Slotvinskiy"],
+  "authors": [
+    "Matvey Slotvinskiy"
+  ],
   "mixins": [
     "zakohealthindicator/mixins.json"
   ],
@@ -22,8 +24,9 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=${loader_version}",
-    "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
   }
 }
