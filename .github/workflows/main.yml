@@ -12,7 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 25 (Toolchain)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+
+      - name: Set up JDK 21 (Gradle Runtime)
         uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -25,10 +31,6 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Fabric-Mod-26.2
-          path: build/libs/*.jar
+        run: ./gradlew build -Porg.gradle.java.installations.paths=$JAVA_HOME_25_X64
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_21_X64 }}
