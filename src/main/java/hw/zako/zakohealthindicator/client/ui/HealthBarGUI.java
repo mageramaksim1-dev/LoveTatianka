@@ -1,14 +1,13 @@
 package hw.zako.zakohealthindicator.client.ui;
+
 import hw.zako.zakohealthindicator.Config;
 import hw.zako.zakohealthindicator.util.ColorUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 
 public final class HealthBarGUI {
     private static long lastAttack = 0L;
@@ -35,7 +34,7 @@ public final class HealthBarGUI {
         });
 
         HudElementRegistry.addLast(
-                Identifier.fromNamespaceAndPath("zakohealthindicator", "health_indicator"),
+                Identifier.fromNamespaceAndPath("lovetatianka", "health_indicator"),
                 HealthBarGUI::extract
         );
     }
@@ -47,22 +46,28 @@ public final class HealthBarGUI {
         if (System.currentTimeMillis() - lastAttack > 10_000L) return;
 
         float health = player.getHealth();
-        int healthInt = (int) health;
-        String text = healthInt + "";
+        int healthInt = Math.max(0, (int) health);
+        String text = healthInt + "♥";
         int textWidth = Minecraft.getInstance().font.width(text);
 
+        int centerX = graphics.guiWidth() / 2;
+        int centerY = graphics.guiHeight() / 2 + 4;
         int scale = health < 10.0f ? 2 : 1;
-        int x = graphics.guiWidth() / (scale * 2) - textWidth / 2;
-        int y = graphics.guiHeight() / (scale * 2) + 4;
 
-        if (scale == 2) {
-            var matrices = graphics.pose();
-            matrices.pushMatrix();
-            matrices.scale(2.0f, 2.0f);
-            graphics.text(Minecraft.getInstance().font, text, x / 2, y / 2, ColorUtil.getColor(health), true);
-            matrices.popMatrix();
-        } else {
-            graphics.text(Minecraft.getInstance().font, text, x, y, ColorUtil.getColor(health), true);
-        }
+        var matrices = graphics.pose();
+        matrices.pushMatrix();
+        matrices.translate(centerX, centerY);
+        matrices.scale(scale, scale);
+
+        graphics.text(
+                Minecraft.getInstance().font,
+                text,
+                -textWidth / 2,
+                0,
+                ColorUtil.getColor(health),
+                true
+        );
+
+        matrices.popMatrix();
     }
 }

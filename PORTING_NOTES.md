@@ -11,3 +11,10 @@ Key changes:
 - Minecraft 26.2 / Java 25 / Loader 0.19.3 / Loom 1.17.11 / Fabric API 0.154.1+26.2 are retained.
 
 The build was not executed to completion in this environment because external Gradle/Maven downloads are unavailable here. GitHub Actions should perform the real build.
+
+
+## LoveTatianka changes
+- Mod ID changed from `zakohealthindicator` to `lovetatianka`.
+- Added `assets/lovetatianka/icon.png` and registered it in `fabric.mod.json`.
+- Health indicator is centered using the screen center even when the value is below 10 and rendered at 2x scale.
+- Config filename changed to `lovetatianka.json`.

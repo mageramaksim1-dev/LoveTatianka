@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "zakohealthindicator",
+  "id": "lovetatianka",
   "version": "${version}",
   "name": "LoveTatianka",
-  "description": "",
+  "description": "Показує здоров'я цілі під прицілом",
   "authors": [
     "Matvey Slotvinskiy"
   ],
@@ -28,5 +28,6 @@
     "minecraft": "~26.2",
     "java": ">=25",
     "fabric-api": "*"
-  }
+  },
+  "icon": "assets/lovetatianka/icon.png"
 }

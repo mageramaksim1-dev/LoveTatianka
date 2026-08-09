@@ -16,7 +16,7 @@ public class Config {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
-    private static final Path CONFIG_FILE = CONFIG_DIR.resolve("zhindicator.json");
+    private static final Path CONFIG_FILE = CONFIG_DIR.resolve("lovetatianka.json");
 
     private boolean crosshair = true;
 
