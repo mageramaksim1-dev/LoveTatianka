@@ -1,12 +1,10 @@
 package hw.zako.zakohealthindicator.client.ui;
-
 import hw.zako.zakohealthindicator.Config;
 import hw.zako.zakohealthindicator.util.ColorUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.resources.Identifier;
@@ -25,7 +23,7 @@ public final class HealthBarGUI {
         registered = true;
 
         AttackEntityCallback.EVENT.register((attacker, level, hand, entity, hitResult) -> {
-            if (entity.getType() != EntityType.PLAYER || !(entity instanceof Player target)) {
+            if (!(entity instanceof Player target)) {
                 player = null;
                 lastAttack = 0L;
                 return net.minecraft.world.InteractionResult.PASS;
